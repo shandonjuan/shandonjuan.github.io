@@ -8,15 +8,16 @@ input:invalid { border:3px solid red;
 	</style>
 </head>
 <body>
-<form id ="myForm" method ="POST">
-  name<input type="text" name="username"/>
-  <br>
-  password:<input type="password" name="password"/>
-  <input type ="submit"/>
-  email<input type="email" name="email"/required/>
-  <input type ="submit"/>
-  <br>
-  <br>
+<form name="login" action="index_submit" method="get" accept-charset="utf-8">
+    <ul>
+        <li><label for="usermail">Email</label>
+        <input type="email" name="usermail" placeholder="yourname@something.com" required></li>
+        <li><label for="password">Password</label>
+        <input type="password" name="password" placeholder="password" required></li>
+        <li><label for="phone">Phone</label>
+       (<input type=tel size=3>) <input type=tel size=3> - 
+    <input type=tel size=4></li>
+    </ul>
 </form>
 </body>
 </html>
