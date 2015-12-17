@@ -1,25 +1,50 @@
 <!DOCTYPE html>
 <html>
-<title>HTML5 Login</title>
-	<link rel="stylesheet" href="styles.css">
+
 <head>
-	<title></title>
+	<title>FireChat</title>
 	<style>
-input:invalid { border:3px solid red;
-}
+	li {
+		list-style-type: none
+	}
 	</style>
 </head>
 <body>
-<form name="login" action="index_submit" method="get" accept-charset="utf-8">
-    <ul>
-        <li><label for="usermail">Email</label>
-        <input type="email" name="usermail" placeholder="yourname@something.com" required></li>
-        <li><label for="password">Password</label>
-        <input type="password" name="password" placeholder="password" required></li>
-        <li><label for="phone">Phone</label>
-       (<input type=tel size=3>) <input type=tel size=3> - 
-    <input type=tel size=4></li>
-    </ul>
-</form>
+		<form id ='chatForm'>
+			<input type = "text" name ="message">
+			<input type="submit">
+		</form>
+		<ul id = 'chats'></ul>
+	<script src = 'https://code.jquery.com/jquery-1.11.3.min.js'></script>
+	<script src='https://cdn.firebase.com/js/client/2.2.1/firebase.js'></script>
+	<script>
+	var $chatForm = $('#chatForm');
+	var $chats = $('#chats');
+	//set up some event listener on the chat form
+	var rootRef = new Firebase('https://glaring-heat-7902.firebaseio.com/')//add DB url
+	var messages = rootRef.child('messages');
+	var username  = 'Shan';
+	$chatForm.submit(function(event){
+		event.preventDefault();
+		var message = event.target.children.message.value;
+		messages.push({
+			message: message,
+			username: username,
+			time: Date.now()
+		});
+		//event.target.children.message.value='';
+		message="";
+	});
+	messages.on('child_added', function(snapshot){
+
+		console.log(snapshot.val());
+		//create a dom elemenbt with a chat text
+		var $newChat = $('<li>');
+		$newChat.text(snapshot.val().message);
+		//add chats
+		$chats.append($newChat)
+	})
+	// do something
+	</script>
 </body>
 </html>
